@@ -1,0 +1,26 @@
+# Copyright 2021 Google LLC
+#
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+source_root = "//third_party/highway"
+
+config("highway_headers") {
+  include_dirs = [ "$source_root" ]
+}
+
+source_set("highway") {
+  include_dirs = [ "$source_root" ]
+
+  public = [ 
+    "$source_root/hwy/base.h",
+    "$source_root/hwy/cache_control.h",
+  ]
+
+  public_configs = [ ":highway_headers" ]
+
+  sources = [
+    "$source_root/hwy/aligned_allocator.cc",
+    "$source_root/hwy/targets.cc",
+  ]
+}

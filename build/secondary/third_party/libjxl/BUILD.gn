@@ -1,0 +1,110 @@
+# Copyright 2021 The Chromium Authors. All rights reserved.
+# Use of this source code is governed by a BSD-style license that can be
+# found in the LICENSE file.
+
+# import("../third_party.gni")
+source_root = "//third_party/libjxl"
+
+config("libjxl_headers") {
+  include_dirs = [ 
+    "//build/secondary/third_party/libjxl",
+    "$source_root/lib/include",
+    "$source_root",
+  ]
+}
+
+source_set("libjxl") {
+  deps = [
+    "//third_party/brotli",
+    "//third_party/highway",
+  ]
+
+  public_configs = [ ":libjxl_headers" ]
+
+  include_dirs = [
+    "//build/secondary/third_party/libjxl",
+    "$source_root/lib/include",
+    "$source_root",
+  ]
+
+  defines = [
+    # Does not really matter.
+    "JPEGXL_MAJOR_VERSION=1",
+    "JPEGXL_MINOR_VERSION=0",
+    "JPEGXL_PATCH_VERSION=0",
+
+    "JPEGXL_ENABLE_SKCMS=1",
+    "JPEGXL_ENABLE_TRANSCODE_JPEG=0",
+  ]
+
+  if (is_official_build) {
+    defines += [ "JXL_DEBUG_ON_ABORT=0" ]
+  }
+
+  sources = [
+    "$source_root/lib/jxl/ac_strategy.cc",
+    "$source_root/lib/jxl/alpha.cc",
+    "$source_root/lib/jxl/ans_common.cc",
+    "$source_root/lib/jxl/aux_out.cc",
+    "$source_root/lib/jxl/base/cache_aligned.cc",
+    "$source_root/lib/jxl/base/data_parallel.cc",
+    "$source_root/lib/jxl/base/descriptive_statistics.cc",
+    "$source_root/lib/jxl/base/padded_bytes.cc",
+    "$source_root/lib/jxl/base/status.cc",
+    "$source_root/lib/jxl/blending.cc",
+    "$source_root/lib/jxl/chroma_from_luma.cc",
+    "$source_root/lib/jxl/coeff_order.cc",
+    "$source_root/lib/jxl/color_encoding_internal.cc",
+    "$source_root/lib/jxl/color_management.cc",
+    "$source_root/lib/jxl/compressed_dc.cc",
+    "$source_root/lib/jxl/convolve.cc",
+    "$source_root/lib/jxl/dct_scales.cc",
+    "$source_root/lib/jxl/dec_ans.cc",
+    "$source_root/lib/jxl/dec_cache.cc",
+    "$source_root/lib/jxl/dec_context_map.cc",
+    "$source_root/lib/jxl/dec_external_image.cc",
+    "$source_root/lib/jxl/dec_frame.cc",
+    "$source_root/lib/jxl/dec_group.cc",
+    "$source_root/lib/jxl/dec_group_border.cc",
+    "$source_root/lib/jxl/dec_huffman.cc",
+    "$source_root/lib/jxl/dec_modular.cc",
+    "$source_root/lib/jxl/dec_noise.cc",
+    "$source_root/lib/jxl/dec_patch_dictionary.cc",
+    "$source_root/lib/jxl/dec_reconstruct.cc",
+    "$source_root/lib/jxl/dec_upsample.cc",
+    "$source_root/lib/jxl/dec_xyb.cc",
+    "$source_root/lib/jxl/decode.cc",
+    "$source_root/lib/jxl/decode_to_jpeg.cc",
+    "$source_root/lib/jxl/enc_bit_writer.cc",
+    "$source_root/lib/jxl/entropy_coder.cc",
+    "$source_root/lib/jxl/epf.cc",
+    "$source_root/lib/jxl/fields.cc",
+    "$source_root/lib/jxl/filters.cc",
+    "$source_root/lib/jxl/frame_header.cc",
+    "$source_root/lib/jxl/gauss_blur.cc",
+    "$source_root/lib/jxl/headers.cc",
+    "$source_root/lib/jxl/huffman_table.cc",
+    "$source_root/lib/jxl/icc_codec.cc",
+    "$source_root/lib/jxl/icc_codec_common.cc",
+    "$source_root/lib/jxl/image.cc",
+    "$source_root/lib/jxl/image_bundle.cc",
+    "$source_root/lib/jxl/image_metadata.cc",
+    "$source_root/lib/jxl/jpeg/dec_jpeg_data.cc",
+    "$source_root/lib/jxl/jpeg/dec_jpeg_data_writer.cc",
+    "$source_root/lib/jxl/jpeg/jpeg_data.cc",
+    "$source_root/lib/jxl/loop_filter.cc",
+    "$source_root/lib/jxl/luminance.cc",
+    "$source_root/lib/jxl/memory_manager_internal.cc",
+    "$source_root/lib/jxl/modular/encoding/dec_ma.cc",
+    "$source_root/lib/jxl/modular/encoding/encoding.cc",
+    "$source_root/lib/jxl/modular/modular_image.cc",
+    "$source_root/lib/jxl/modular/transform/squeeze.cc",
+    "$source_root/lib/jxl/modular/transform/transform.cc",
+    "$source_root/lib/jxl/opsin_params.cc",
+    "$source_root/lib/jxl/passes_state.cc",
+    "$source_root/lib/jxl/quant_weights.cc",
+    "$source_root/lib/jxl/quantizer.cc",
+    "$source_root/lib/jxl/splines.cc",
+    "$source_root/lib/jxl/toc.cc",
+  ]
+}
